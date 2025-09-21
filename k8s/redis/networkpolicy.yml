@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: redis-network-policy
+  namespace: streaming-platform
+spec:
+  podSelector:
+    matchLabels:
+      app: redis
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: encoding-service
+    - podSelector:
+        matchLabels:
+          app: delivery-service
+    - podSelector:
+        matchLabels:
+          app: analytics-service
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 6379
+    #Add any future cloud
+  egress: #Any outbound
+  - {}  

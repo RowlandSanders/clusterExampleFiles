@@ -1,0 +1,12 @@
+piVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-pvc
+  namespace: streaming-platform
+  labels:
+    app: redis
+    component: cache
+spec:
+  resources:
+    requests:
+      storage: 25Gi #25G attached to cluster storage
