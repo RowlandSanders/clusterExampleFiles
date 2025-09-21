@@ -24,6 +24,9 @@ spec:
     - podSelector:
         matchLabels:
           app: prometheus
+    - namespaceSelector:    #to allow scaling from keda namspace (permit keda)
+        matchLabels:
+          name: keda
     ports:
     - protocol: TCP
       port: 6379
