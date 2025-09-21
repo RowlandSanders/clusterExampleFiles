@@ -62,54 +62,54 @@ It showcases how each tool integrates into the pipeline, from code commit to dep
 
 ```text
 ├── helm/
-│   └── streaming-platform/
-│       ├── Chart.yml
-│       ├── templates/
+│   └── streaming-platform/ 
+│       ├── Chart.yml                       #Names, versions, description
+│       ├── templates/                       #templated versions of deployments, ingress, etc
 │       │   └── app-placeholder.yml
-│       └── values.yml
+│       └── values.yml                       #Configurations for image repos, tags, resources
 ├── jenkins/
-│   └── JenkinsFiles
+│   └── JenkinsFile                       #JenkinPipeline
 ├── k8s/
-│   ├── analytics/..
-│   ├── delivery/..
+│   ├── analytics/..                       #Deployment setup with HPA
+│   ├── delivery/..                       #Deployment setup with HPA
 │   ├── encoding/
-│   │   ├── deployment.yml
-│   │   ├── hpa.yml
-│   │   └── service.yml
-│   ├── ingress.yml
+│   │   ├── deployment.yml                       #Runs pods
+│   │   ├── hpa.yml                       #Horizontal Auto Scaling based on CPU/RAM usuage
+│   │   └── service.yml                       #Exposes service inside cluster
+│   ├── ingress.yml                       #Configuration for NGINX
 │   ├── keda/
-│   │   ├── analytics-scaledobject.yml
-│   │   ├── delivery-scaledobject.yml
-│   │   ├── encoding-scaledobject.yml
-│   │   └── redis-auth.yml
+│   │   ├── analytics-scaledobject.yml                       #Scales analytics pods based on redis queue triggers
+│   │   ├── delivery-scaledobject.yml                       #Scales delivery pods based on load
+│   │   ├── encoding-scaledobject.yml                       #Scales encoding/transcoding pods increases in load
+│   │   └── redis-auth.yml                       #Config for KEDA to use redis
 │   ├── monitoring/
-│   │   ├── grafana.yml
-│   │   └── prometheus.yml
-│   ├── namspace.yml
+│   │   ├── grafana.yml                       #Config for dashboard monitoring
+│   │   └── prometheus.yml                       #Endpoint scraping and sending to grafana
+│   ├── namspace.yml                       #Defines namespace
 │   └── redis/
-│       ├── configmap.yml
-│       ├── deployment.yml
-│       ├── networkpolicy.yml
-│       ├── pvc.yml
-│       ├── secrets.yml
-│       └── service.yml
+│       ├── configmap.yml                       #Redis config
+│       ├── deployment.yml                       #Deployment of redis
+│       ├── networkpolicy.yml                       #Allows redis to talk to pods
+│       ├── pvc.yml                       #Persistant volume claim for redis data
+│       ├── secrets.yml                       #Auth creds
+│       └── service.yml                       #Exposed redis to cluster
 ├── ops/
 │   ├── ansible/
 │   │   ├── group-vars/
-│   │   │   └── serviceList.yml
+│   │   │   └── serviceList.yml                       #List of services for ansible
 │   │   ├── inventories/
-│   │   │   └── hosts.ini
+│   │   │   └── hosts.ini                       #Node list for playbook
 │   │   └── playbooks/
-│   │       └── updateServices.yml
+│   │       └── updateServices.yml                       #Updates, redeploys and restarts (rolling)
 │   ├── kubeconfig
 │   └── scripts/
-│       ├── deployAll.sh
-│       ├── deployServices.sh
+│       ├── deployAll.sh                       #Deploys all services manually
+│       ├── deployServices.sh                       #Deploys streaming services 
 │       └── readme
 ├── readme.md
-└── services/
-    ├── analytics/..
-    ├── delivery/..
+└── services/                       #Microservices
+    ├── analytics/..                       #Same as encoding for analytics
+    ├── delivery/..                       #Same as encoding for delivery
     └── encoding/
         └── src/
             └── main/
@@ -117,14 +117,14 @@ It showcases how each tool integrates into the pipeline, from code commit to dep
                     └── com/
                         └── streaming/
                             └── encoding/
-                                ├── DockerFile
-                                ├── EncodingApplication.java
+                                ├── DockerFile                       #Defines container
+                                ├── EncodingApplication.java                       #Entry point main code (Springboot)
                                 ├── config/
-                                │   └── EncodingConfig.java
+                                │   └── EncodingConfig.java                       #Service configs
                                 ├── controller/
-                                │   └── EncodingController.java
+                                │   └── EncodingController.java                       #Endpoint defs
                                 ├── pom.xml
                                 └── service/
-                                    └── EncodingService.java
+                                    └── EncodingService.java                       #Service logic
 
 ```

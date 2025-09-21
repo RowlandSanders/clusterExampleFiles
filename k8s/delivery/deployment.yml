@@ -33,7 +33,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: delivery-service
-        image: your-registry/delivery-service:latest
+        image: spacex-registry/delivery-service:latest
         ports:
         - containerPort: 8080
         env:

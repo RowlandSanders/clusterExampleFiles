@@ -33,7 +33,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: analytics-service
-        image: your-registry/analytics-service:latest
+        image: spacex-registry/analytics-service:latest
         ports:
         - containerPort: 8080
         env:

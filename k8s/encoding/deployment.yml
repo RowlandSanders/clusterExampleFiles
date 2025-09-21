@@ -33,7 +33,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: encoding-service
-        image: your-registry/encoding-service:latest
+        image: spacex-registry/encoding-service:latest
         ports:
         - containerPort: 8080
         env:

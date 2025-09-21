@@ -50,7 +50,7 @@ pipeline {    //DSL format
             steps {
                 sh '''
                     # Update image tags in k8s manifests
-                    sed -i "s|your-registry|$REGISTRY|g" k8s/*/deployment.yaml
+                    sed -i "s|spacex-registry|$REGISTRY|g" k8s/*/deployment.yaml
                     sed -i "s|:latest|:$BUILD_NUMBER|g" k8s/*/deployment.yaml
                     
                     # Deploy to Kubernetes
