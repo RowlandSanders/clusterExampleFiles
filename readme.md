@@ -58,3 +58,108 @@ It showcases how each tool integrates into the pipeline, from code commit to dep
 - **Delivery Service** → Streams content to clients.
 - **Analytics Capture** → Tracks usage and performance metrics.
 - **Caching Layer** → Improves response time for frequently streamed videos.
+
+
+```text
+├── helm/
+│   └── streaming-platform/
+│       ├── Chart.yml
+│       ├── templates/
+│       │   └── app-placeholder.yml
+│       └── values.yml
+├── jenkins/
+│   └── JenkinsFiles
+├── k8s/
+│   ├── analytics/
+│   │   ├── deployment.yml
+│   │   ├── hpa.yml
+│   │   └── service.yml
+│   ├── delivery/
+│   │   ├── deployment.yml
+│   │   ├── hpa.yml
+│   │   └── service.yml
+│   ├── encoding/
+│   │   ├── deployment.yml
+│   │   ├── hpa.yml
+│   │   └── service.yml
+│   ├── ingress.yml
+│   ├── keda/
+│   │   ├── analytics-scaledobject.yml
+│   │   ├── delivery-scaledobject.yml
+│   │   ├── encoding-scaledobject.yml
+│   │   └── redis-auth.yml
+│   ├── monitoring/
+│   │   ├── grafana.yml
+│   │   └── prometheus.yml
+│   ├── namspace.yml
+│   └── redis/
+│       ├── configmap.yml
+│       ├── deployment.yml
+│       ├── networkpolicy.yml
+│       ├── pvc.yml
+│       ├── secrets.yml
+│       └── service.yml
+├── ops/
+│   ├── ansible/
+│   │   ├── group-vars/
+│   │   │   └── serviceList.yml
+│   │   ├── inventories/
+│   │   │   └── hosts.ini
+│   │   └── playbooks/
+│   │       └── updateServices.yml
+│   ├── kubeconfig
+│   └── scripts/
+│       ├── deployAll.sh
+│       ├── deployServices.sh
+│       └── readme
+├── readme.md
+└── services/
+    ├── analytics/
+    │   └── src/
+    │       └── main/
+    │           └── java/
+    │               └── com/
+    │                   └── streaming/
+    │                       └── analytics/
+    │                           ├── AnalyticsApplication.java
+    │                           ├── DockerFile
+    │                           ├── config/
+    │                           │   └── AnalyticsConfig.java
+    │                           ├── controller/
+    │                           │   └── AnalyticsController.java
+    │                           ├── pom.xml
+    │                           └── service/
+    │                               └── AnalyticsService.java
+    ├── delivery/
+    │   └── src/
+    │       └── main/
+    │           └── java/
+    │               └── com/
+    │                   └── streaming/
+    │                       └── delivery/
+    │                           ├── DeliveryApplication.java
+    │                           ├── DockerFile
+    │                           ├── config/
+    │                           │   └── DeliveryConfig.java
+    │                           ├── controller/
+    │                           │   └── DeliveryController.java
+    │                           ├── pom.xml
+    │                           └── service/
+    │                               └── DeliveryService.java
+    └── encoding/
+        └── src/
+            └── main/
+                └── java/
+                    └── com/
+                        └── streaming/
+                            └── encoding/
+                                ├── DockerFile
+                                ├── EncodingApplication.java
+                                ├── config/
+                                │   └── EncodingConfig.java
+                                ├── controller/
+                                │   └── EncodingController.java
+                                ├── pom.xml
+                                └── service/
+                                    └── EncodingService.java
+```
