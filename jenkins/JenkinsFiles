@@ -1,0 +1,76 @@
+pipeline {
+    agent any
+    
+    environment {
+        REGISTRY = 'SpaceX-registry'
+        NAMESPACE = 'streaming-platform'
+    }
+    
+    stages {
+        stage('Build All Services') {
+            parallel {
+                stage('Build Encoding') {
+                    steps {
+                        dir('services/encoding') {
+                            sh 'mvn clean package'    
+                            sh 'docker build -t $REGISTRY/encoding-service:$BUILD_NUMBER .'
+                        }
+                    }
+                }
+                stage('Build Delivery') {
+                    steps {
+                        dir('services/delivery') {
+                            sh 'mvn clean package'
+                            sh 'docker build -t $REGISTRY/delivery-service:$BUILD_NUMBER .'
+                        }
+                    }
+                }
+                stage('Build Analytics') {
+                    steps {
+                        dir('services/analytics') {
+                            sh 'mvn clean package'
+                            sh 'docker build -t $REGISTRY/analytics-service:$BUILD_NUMBER .'
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Push Images') {
+            steps {
+                sh '''
+                    docker push $REGISTRY/encoding-service:$BUILD_NUMBER
+                    docker push $REGISTRY/delivery-service:$BUILD_NUMBER
+                    docker push $REGISTRY/analytics-service:$BUILD_NUMBER
+                '''
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                sh '''
+                    # Update image tags in k8s manifests
+                    sed -i "s|your-registry|$REGISTRY|g" k8s/*/deployment.yaml
+                    sed -i "s|:latest|:$BUILD_NUMBER|g" k8s/*/deployment.yaml
+                    
+                    # Deploy to Kubernetes
+                    kubectl apply -f k8s/
+                    
+                    # Wait for deployments
+                    kubectl rollout status deployment/encoding-service -n $NAMESPACE
+                    kubectl rollout status deployment/delivery-service -n $NAMESPACE
+                    kubectl rollout status deployment/analytics-service -n $NAMESPACE
+                '''
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo "On-Demand Streaming Deployed! (Like a rocket)"
+        }
+        failure {
+            echo "Deployment failure"
+        }
+    }
+}

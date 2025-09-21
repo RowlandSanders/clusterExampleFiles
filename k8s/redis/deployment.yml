@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: redis
-        image: redis:7-alpine
+        image: redis:7-alpine #7.4 which is newest
         ports:
         - containerPort: 6379 #Redis default port
           name: redis
@@ -47,7 +47,7 @@ spec:
           name: metrics
         env:
         - name: REDIS_ADDR
-          value: "redis://localhost:6379"
+          value: "redis://localhost:6379" #Redis default port
       volumes:
       - name: redis-config
         configMap:
