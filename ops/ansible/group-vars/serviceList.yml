@@ -1,0 +1,19 @@
+k8s_namespace: streaming-platform
+registry: spacex-registry
+
+#Latest updates
+image_tag_mode: static
+image_tag_static: latest
+
+#Services
+artifactory_repo: docker-local
+artifactory_services:
+  - name: encoding-service
+    container: encoding-service
+    image_path: encoding-service
+  - name: delivery-service
+    container: delivery-service
+    image_path: delivery-service
+  - name: analytics-service
+    container: analytics-service
+    image_path: analytics-service

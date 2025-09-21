@@ -1,0 +1,20 @@
+- name: Rolling update for services
+  hosts: serviceList
+  vars:
+    kubeconfig_path: "{{ kubeconfig_path | default('~/.kube/config') }}"
+
+    # Services list
+    services:
+      - { name: "encoding-service",  container: "encoding-service" }
+      - { name: "delivery-service",  container: "delivery-service" }
+      - { name: "analytics-service", container: "analytics-service" }
+
+    #Tasks 
+  tasks:
+    - name: Cluster Status
+          ansible.builtin.command: kubectl --kubeconfig "{{ kubeconfig_path }}" get nodes -o name
+      register: nodes_out
+    - name: Find new tags
+    - name: Build iamges
+    - name: Patch Deployment image
+    - name: Print Status
