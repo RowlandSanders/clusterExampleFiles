@@ -92,6 +92,6 @@ spec:
   selector:
     app: prometheus
   ports:
-  - port: 9090
+  - port: 9090  #web UI port
     targetPort: 9090
   type: ClusterIP
