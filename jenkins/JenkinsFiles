@@ -1,4 +1,4 @@
-pipeline {
+pipeline {    //DSL format
     agent any
     
     environment {
@@ -7,7 +7,7 @@ pipeline {
     }
     
     stages {
-        stage('Build All Services') {
+        stage('Build All Services') {   //Builds encoding, delivery and analytic containers
             parallel {
                 stage('Build Encoding') {
                     steps {
