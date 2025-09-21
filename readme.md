@@ -70,14 +70,8 @@ It showcases how each tool integrates into the pipeline, from code commit to dep
 ├── jenkins/
 │   └── JenkinsFiles
 ├── k8s/
-│   ├── analytics/
-│   │   ├── deployment.yml
-│   │   ├── hpa.yml
-│   │   └── service.yml
-│   ├── delivery/
-│   │   ├── deployment.yml
-│   │   ├── hpa.yml
-│   │   └── service.yml
+│   ├── analytics/..
+│   ├── delivery/..
 │   ├── encoding/
 │   │   ├── deployment.yml
 │   │   ├── hpa.yml
@@ -114,38 +108,8 @@ It showcases how each tool integrates into the pipeline, from code commit to dep
 │       └── readme
 ├── readme.md
 └── services/
-    ├── analytics/
-    │   └── src/
-    │       └── main/
-    │           └── java/
-    │               └── com/
-    │                   └── streaming/
-    │                       └── analytics/
-    │                           ├── AnalyticsApplication.java
-    │                           ├── DockerFile
-    │                           ├── config/
-    │                           │   └── AnalyticsConfig.java
-    │                           ├── controller/
-    │                           │   └── AnalyticsController.java
-    │                           ├── pom.xml
-    │                           └── service/
-    │                               └── AnalyticsService.java
-    ├── delivery/
-    │   └── src/
-    │       └── main/
-    │           └── java/
-    │               └── com/
-    │                   └── streaming/
-    │                       └── delivery/
-    │                           ├── DeliveryApplication.java
-    │                           ├── DockerFile
-    │                           ├── config/
-    │                           │   └── DeliveryConfig.java
-    │                           ├── controller/
-    │                           │   └── DeliveryController.java
-    │                           ├── pom.xml
-    │                           └── service/
-    │                               └── DeliveryService.java
+    ├── analytics/..
+    ├── delivery/..
     └── encoding/
         └── src/
             └── main/
@@ -162,4 +126,5 @@ It showcases how each tool integrates into the pipeline, from code commit to dep
                                 ├── pom.xml
                                 └── service/
                                     └── EncodingService.java
+
 ```
